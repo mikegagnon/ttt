@@ -34,12 +34,13 @@ class TicTacToe {
     }
 
     attachClickHandler() {
-        var selector = "#" + this.divId + " .cell";
         var __this__ = this;
-        var clickFunction = function(event) {
-            var cellNumber = $(this).attr("data-cell-number");
+        var clickFunction = function() {
+            var cellNumber = $(this).data("cell-number");
             __this__.cellClick(cellNumber);
         }
+
+        var selector = "#" + this.divId + " .cell";
 
         $(selector).click(clickFunction);
     }
