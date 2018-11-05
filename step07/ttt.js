@@ -33,6 +33,7 @@ class TicTacToe {
             </div>
             <div class="row"><br></div>`
 
+        // TODO: clean this up
         var fullHtml = "<div id='" + this.divId + "' style='position: absolute';><div id='" + this.divId + "header' style=''>Drag me</div>" + innerHtml + "</div>";
         $("body").append(fullHtml);
     }
