@@ -43,7 +43,6 @@ var ttt = new TicTacToe("X");
 
 $(".cell").click(function() {
     var cellNumber = $(this).data("cell-number");
-    //alert(cellNumber);
     ttt.cellClick(cellNumber);
 });
 
