@@ -15,7 +15,6 @@ class TicTacToe {
         $(".cell").eq(cellNumber).text(this.player);
         this.gameOver = this.checkForVictory("X") || this.checkForVictory("O");
 
-
         if (this.gameOver) {
             alert(this.player + " wins!");
         }
