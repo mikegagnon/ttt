@@ -1,44 +1,63 @@
-var PLAYER = "X";
-var CELL_MARK = new Array(9);
-var GAME_OVER;
-var CELLS_PLAYED = 0;
+class TicTacToe {
 
-function cellClick() {
-    var cellNumber = $(this).data("cell-number");
-
-    if (GAME_OVER || CELL_MARK[cellNumber] == "X" || CELL_MARK[cellNumber] == "O") {
-        return;
+    constructor(firstPlayer) {
+        this.player = firstPlayer;
+        this.cellMark = new Array(9);
+        this.gameOver = false;
+        this.cellsPlayed = 0;
     }
 
-    CELL_MARK[cellNumber] = PLAYER;
-    CELLS_PLAYED++;
-    $(this).text(PLAYER);
-    var victory = checkForVictory(PLAYER);
-    var tie = CELLS_PLAYED == 9;
-    GAME_OVER = victory || tie;
+    playCell(cellNumber) {
+        if (this.gameOver || this.cellMark[cellNumber]) {
+            return;
+        }
 
-    if (victory) {
-        alert(PLAYER + " wins!");
-    } else if (tie) {
-        alert("Tie!");
+        this.cellMark[cellNumber] = this.player;
+        this.cellsPlayed++;
+
+        var victory = this.checkForVictory(this.player);
+        var tie = !victory && this.cellsPlayed == 9;
+
+        var player = this.player;
+        if (this.player == "X") {
+            this.player = "O";
+        } else {
+            this.player = "X";
+        }
+
+        return {
+            player: player,
+            victory: victory,
+            tie: tie
+        };
     }
 
-    if (PLAYER == "X") {
-        PLAYER = "O";
-    } else {
-        PLAYER = "X";
+    checkForVictory(player) {
+        return (this.cellMark[0] == player && this.cellMark[1] == player && this.cellMark[2] == player) ||
+            (this.cellMark[3] == player && this.cellMark[4] == player && this.cellMark[5] == player) ||
+            (this.cellMark[6] == player && this.cellMark[7] == player && this.cellMark[8] == player) ||
+            (this.cellMark[0] == player && this.cellMark[3] == player && this.cellMark[6] == player) ||
+            (this.cellMark[1] == player && this.cellMark[4] == player && this.cellMark[7] == player) ||
+            (this.cellMark[2] == player && this.cellMark[5] == player && this.cellMark[8] == player) ||
+            (this.cellMark[0] == player && this.cellMark[4] == player && this.cellMark[8] == player) ||
+            (this.cellMark[6] == player && this.cellMark[4] == player && this.cellMark[2] == player);
     }
 }
 
-function checkForVictory(player) {
-    return (CELL_MARK[0] == player && CELL_MARK[1] == player && CELL_MARK[2] == player) ||
-        (CELL_MARK[3] == player && CELL_MARK[4] == player && CELL_MARK[5] == player) ||
-        (CELL_MARK[6] == player && CELL_MARK[7] == player && CELL_MARK[8] == player) ||
-        (CELL_MARK[0] == player && CELL_MARK[3] == player && CELL_MARK[6] == player) ||
-        (CELL_MARK[1] == player && CELL_MARK[4] == player && CELL_MARK[7] == player) ||
-        (CELL_MARK[2] == player && CELL_MARK[5] == player && CELL_MARK[8] == player) ||
-        (CELL_MARK[0] == player && CELL_MARK[4] == player && CELL_MARK[8] == player) ||
-        (CELL_MARK[6] == player && CELL_MARK[4] == player && CELL_MARK[2] == player);
+var ttt = new TicTacToe("X");
+
+function cellClick() {
+    var cellNumber = $(this).data("cell-number");
+    var result = ttt.playCell(cellNumber);
+
+    if (result) {
+        $(this).text(result.player);
+        if (result.victory) {
+            alert(result.player + " wins!");
+        } else if (result.tie) {
+            alert("Tie!");
+        }
+    }
 }
 
 $(".cell").click(cellClick);
