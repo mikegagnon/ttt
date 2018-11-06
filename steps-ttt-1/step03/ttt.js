@@ -4,7 +4,7 @@ var CELL_MARK = new Array(9);
 function cellClick() {
     var cellNumber = $(this).data("cell-number");
 
-    if (CELL_MARK[cellNumber] == "X" || CELL_MARK[cellNumber] == "O") {
+    if (CELL_MARK[cellNumber]) {
         return;
     }
 

@@ -6,7 +6,7 @@ var CELLS_PLAYED = 0;
 function cellClick() {
     var cellNumber = $(this).data("cell-number");
 
-    if (GAME_OVER || CELL_MARK[cellNumber] == "X" || CELL_MARK[cellNumber] == "O") {
+    if (GAME_OVER || CELL_MARK[cellNumber]) {
         return;
     }
 
