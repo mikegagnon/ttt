@@ -67,6 +67,14 @@ function attachCopyHandler(ttt, viz) {
         var newViz = new TttVizualizer();
         var newTtt = ttt.deepCopy();
         attachClickHandler(newTtt, newViz);
+        attachCopyHandler(newTtt, newViz);
+
+        for (var i = 0; i < newTtt.cellMark.length; i++) {
+            var player = newTtt.cellMark[i];
+            if (player) {
+                newViz.markCell(i, player);
+            }
+        }
     }
 
 
@@ -93,6 +101,8 @@ class TicTacToe {
         }
 
         newTTT.player = this.player;
+
+        return newTTT;
     }
 
     cellClick(cellNumber) {
@@ -139,4 +149,5 @@ function randomDivId() {
 var newViz = new TttVizualizer();
 var newTtt = new TicTacToe("X");
 attachClickHandler(newTtt, newViz);
+attachCopyHandler(newTtt, newViz);
 
