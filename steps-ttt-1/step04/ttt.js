@@ -14,7 +14,7 @@ function cellClick() {
     CELLS_PLAYED++;
     $(this).text(PLAYER);
     var victory = checkForVictory(PLAYER);
-    var tie = CELLS_PLAYED == 9;
+    var tie = !victory && CELLS_PLAYED == 9;
     GAME_OVER = victory || tie;
 
     if (victory) {
