@@ -48,7 +48,9 @@ class TicTacToe {
 
     playCell(cellNumber) {
         if (this.gameOver || this.cellMark[cellNumber]) {
-            return;
+            return {
+                validMove: false
+            };
         }
 
         this.cellMark[cellNumber] = this.player;
@@ -65,6 +67,7 @@ class TicTacToe {
         }
 
         return {
+            validMove: true,
             player: player,
             victory: victory,
             tie: tie
@@ -88,7 +91,7 @@ function cellClick(element, ttt, viz) {
     var result = ttt.playCell(cellNumber);
     console.log(cellNumber, result);
 
-    if (result) {
+    if (result.validMove) {
         viz.markCell(cellNumber, result.player);
         if (result.victory) {
             alert(result.player + " wins!");
