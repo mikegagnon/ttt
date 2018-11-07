@@ -8,6 +8,7 @@ class TttVizualizer {
     appendHtml() {
         var html = `
             <div id="${this.divId}">
+                <button>Copy</button>
                 <div class="row">
                   <div class="cell" data-cell-number="0"></div>
                   <div class="cell" data-cell-number="1"></div>
@@ -23,7 +24,8 @@ class TttVizualizer {
                   <div class="cell" data-cell-number="7"></div>
                   <div class="cell" data-cell-number="8"></div>
                 </div>
-            </div>`
+            </div>
+            <div class="row"><br><div>`
         $("body").append(html);
     }
 
@@ -119,27 +121,54 @@ function cellClick(cellNumber, ttt, viz) {
     }
 }
 
-// Setup game 1
-var viz1 = new TttVizualizer();
-var ttt1 = new TicTacToe("X");
-function cellClick1() {
-    var cellNumber = $(this).data("cell-number");
-    cellClick(cellNumber, ttt1, viz1);
-}
-var selector = `#${viz1.divId} .cell`;
-$(selector).click(cellClick1);
+function createTicTacToe(original) {
 
-cellClick(0, ttt1, viz1);
-cellClick(2, ttt1, viz1);
+    // TODO: factor out
+    var startingPlayer = "X";
+
+    var viz = new TttVizualizer();
+    var ttt;
+
+    if (original) {
+        ttt = original.deepCopy();
+        viz.markGame(ttt);
+    } else {
+        ttt = new TicTacToe(startingPlayer);
+    }
+
+    function cellClickWrapper() {
+        var cellNumber = $(this).data("cell-number");
+        cellClick(cellNumber, ttt, viz);
+    }
+
+    function createTicTacToeWrapper() {
+        createTicTacToe(ttt);
+    }
+
+    var selector = `#${viz.divId} .cell`;
+    $(selector).click(cellClickWrapper);
+
+    selector = `#${viz.divId} button`;
+    $(selector).click(createTicTacToeWrapper);
+}
+
+// TODO: teach missing arguments undefined
+//var game = createTicTacToe("X");
+
+createTicTacToe();
+
+//cellClick(0, game.ttt, game.viz);
+//cellClick(2, game.ttt, game.viz);
+
 
 
 // Setup game 2
-var viz2 = new TttVizualizer();
+/*var viz2 = new TttVizualizer();
 var ttt2 = ttt1.deepCopy();
-viz2.markGame(ttt2);
 function cellClick2() {
     var cellNumber = $(this).data("cell-number");
     cellClick(cellNumber, ttt2, viz2);
 }
 var selector = `#${viz2.divId} .cell`;
 $(selector).click(cellClick2);
+*/
