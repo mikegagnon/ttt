@@ -1,4 +1,3 @@
-
 function cellClick() {
     $(this).text("X");
 }
