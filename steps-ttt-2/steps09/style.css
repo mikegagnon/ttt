@@ -1,0 +1,20 @@
+.ttt-container {
+    position: absolute;
+}
+
+.row {
+    clear: left;
+}
+
+.cell {
+    height: 20px;
+    line-height: 20px;
+    width: 20px;
+    margin-left: 5px;
+    margin-top: 5px;
+    float: left; 
+    text-align: center;
+    background-color: lightgray;
+    cursor: pointer;
+    font-size: 20px;
+}
