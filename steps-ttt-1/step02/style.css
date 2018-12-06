@@ -4,13 +4,13 @@
 
 .cell {
     height: 100px;
-    line-height: 100px;
     width: 100px;
-    margin-left: 5px;
-    margin-top: 5px;
-    float: left; 
-    text-align: center;
     background-color: lightgray;
-    cursor: pointer;
+    margin-top: 5px;
+    float: left;
+    margin-left: 5px;
+    text-align: center;
+    line-height: 100px;
     font-size: 100px;
+    cursor: pointer;
 }
